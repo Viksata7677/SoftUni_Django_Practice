@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# IDEs
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+
+# Django stuff
+*.sqlite3
+*.log
+
+# Reports / generated files
+*.xml
