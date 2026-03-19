@@ -3,7 +3,7 @@ from django.urls import path, include
 from urls_and_views.departments import views
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='home'),
     path('softuni/', views.redirect_to_softuni),
     path('redirect-to-view/', views.redirect_to_view),
     path('numbers/', include([

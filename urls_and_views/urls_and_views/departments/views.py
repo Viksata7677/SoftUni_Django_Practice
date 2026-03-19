@@ -30,4 +30,4 @@ def redirect_to_softuni(request):
 
 
 def redirect_to_view(request):
-    return redirect('http://127.0.0.1:8000/')
+    return redirect('home')
