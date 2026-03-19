@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from urls_and_views.departments.models import Department
 
@@ -23,3 +23,7 @@ def view_with_int_pk(request, pk: int):
 def view_with_slug(request, slug):
     department = get_object_or_404(Department, slug=slug)
     return HttpResponse(f'<h3>Department from slug: {department}</h3>')
+
+
+def redirect_to_softuni(request):
+    return redirect('https://softuni.bg')

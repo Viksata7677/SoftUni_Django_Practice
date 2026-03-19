@@ -1,0 +1,15 @@
+
+# Ignore all virtual environments anywhere in the repo
+venv/
+.venv/
+env/
+.env/
+*/venv/
+*/.venv/
+*/env/
+*/.env/
+
+__pycache__/
+*.pyc
+
+.idea/
