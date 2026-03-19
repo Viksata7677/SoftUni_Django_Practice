@@ -30,4 +30,4 @@ def redirect_to_softuni(request):
 
 
 def redirect_to_view(request):
-    return redirect('home')
+    return redirect('numbers', pk=2)
