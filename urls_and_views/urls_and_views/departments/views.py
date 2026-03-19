@@ -27,3 +27,7 @@ def view_with_slug(request, slug):
 
 def redirect_to_softuni(request):
     return redirect('https://softuni.bg')
+
+
+def redirect_to_view(request):
+    return redirect('http://127.0.0.1:8000/')
