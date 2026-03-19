@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from urls_and_views.departments.models import Department
 
@@ -21,5 +21,5 @@ def view_with_int_pk(request, pk: int):
 
 
 def view_with_slug(request, slug):
-    department = Department.objects.get(slug=slug)
+    department = get_object_or_404(Department, slug=slug)
     return HttpResponse(f'<h3>Department from slug: {department}</h3>')
