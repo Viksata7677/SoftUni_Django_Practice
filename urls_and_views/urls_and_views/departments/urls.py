@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/', views.view_with_int_pk),
     path('<slug:slug>/', views.view_with_slug),
     path('<variable>/', views.view_with_name),
+    path('<path:variable>/', views.view_with_name)
 ]
