@@ -15,7 +15,8 @@ def index(request):
             'height': 190
         },
         'ids': ['123', '321'],
-        'text': 'Hello my name is Viktor!'
+        'text': 'Hello my name is Viktor!',
+        'users': ['Viktor', 'Aleks', 'Ivan']
     }
 
     return render(request, 'base.html', context=context)

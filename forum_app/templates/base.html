@@ -14,5 +14,11 @@
     <p>Age: {{ person.age }}, Height: {{ person.height }}</p>
     <p>ID number 1: {{ ids.0 }}</p>
     <p>Text: {{ text|truncatechars:15 }}</p>
+
+    <ul>
+        {% for user in users %}
+            <li>{{ user }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
