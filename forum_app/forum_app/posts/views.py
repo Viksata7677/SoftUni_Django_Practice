@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -5,4 +7,9 @@ from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Hello!")
+
+    context = {
+        'current_time': datetime.now()
+    }
+
+    return render(request, 'base.html', context=context)
