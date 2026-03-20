@@ -20,3 +20,22 @@ def index(request):
     }
 
     return render(request, 'base.html', context=context)
+
+
+def dashboard(request):
+    content = {
+        'posts': [
+            {
+                'title': "This is Viktor's post 1",
+                'author': 'Viktor Iordanov',
+                'created_at': datetime.now()
+            },
+            {
+                'title': "This is Viktor's post 2",
+                'author': 'Viktor Iordanov',
+                'created_at': datetime.now()
+            }
+        ]
+    }
+
+    return render(request, 'posts/dashboard.html', content)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for post in posts %}
+        {{ post.title|capfirst }}
+
+        {% if not post.content %}
+            {% lorem 3 p %}
+            {% else %}
+            {{ post.content|truncatechars:10 }}
+        {% endif %}
+
+        <span>Posted by {{ post.author|default:'anonymous' }} on {{ post.created_at|date:'d-M-Y' }}</span>
+    {% empty %}
+        <p>No posts</p>
+    {% endfor %}
+</body>
+</html>
