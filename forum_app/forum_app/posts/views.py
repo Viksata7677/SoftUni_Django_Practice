@@ -14,7 +14,8 @@ def index(request):
             'age': 20,
             'height': 190
         },
-        'ids': ['123', '321']
+        'ids': ['123', '321'],
+        'text': 'Hello my name is Viktor!'
     }
 
     return render(request, 'base.html', context=context)
