@@ -13,7 +13,8 @@ def index(request):
         'person': {
             'age': 20,
             'height': 190
-        }
+        },
+        'ids': ['123', '321']
     }
 
     return render(request, 'base.html', context=context)
