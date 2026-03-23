@@ -3,20 +3,24 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from forum_app.posts.forms import PersonForm
+
+
 # Create your views here.
 
 
 def index(request):
 
+    form = PersonForm(request.POST or None)
+
+    if request.method == "POST":
+        print(request.POST['person_name'])
+
+        if form.is_valid():
+            print(form.cleaned_data['person_name'])
+
     context = {
-        'current_time': datetime.now(),
-        'person': {
-            'age': 20,
-            'height': 190
-        },
-        'ids': ['123', '321'],
-        'text': 'Hello my name is Viktor!',
-        'users': ['Viktor', 'Aleks', 'Ivan']
+        'my_form': PersonForm(),
     }
 
     return render(request, 'base.html', context=context)
