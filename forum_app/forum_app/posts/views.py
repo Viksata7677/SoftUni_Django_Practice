@@ -1,9 +1,10 @@
 from datetime import datetime
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from forum_app.posts.forms import PersonForm
+from forum_app.posts.forms import PersonForm, PostBaseForm
+from forum_app.posts.models import Post
 
 
 # Create your views here.
@@ -28,18 +29,22 @@ def index(request):
 
 def dashboard(request):
     content = {
-        'posts': [
-            {
-                'title': "This is Viktor's post 1",
-                'author': 'Viktor Iordanov',
-                'created_at': datetime.now()
-            },
-            {
-                'title': "This is Viktor's post 2",
-                'author': 'Viktor Iordanov',
-                'created_at': datetime.now()
-            }
-        ]
+        'posts': Post.objects.all()
     }
 
     return render(request, 'posts/dashboard.html', content)
+
+
+def add_post(request):
+    form = PostBaseForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'posts/add-post.html', context)

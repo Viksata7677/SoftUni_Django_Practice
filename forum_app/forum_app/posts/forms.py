@@ -1,5 +1,7 @@
 from django import forms
 
+from forum_app.posts.models import Post
+
 
 class PersonForm(forms.Form):
     STATUS_CHOICE = (
@@ -13,3 +15,21 @@ class PersonForm(forms.Form):
     date = forms.DateField()
     is_lecturer = forms.BooleanField()
     status = forms.IntegerField(widget=forms.Select(choices=STATUS_CHOICE))
+
+
+class PostBaseForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+        widgets = {
+            'title': forms.NumberInput
+        }
+
+        help_text = {
+            'title':  'This is the title'
+        }
+
+        labels = {
+            'title': "That's a label"
+        }
