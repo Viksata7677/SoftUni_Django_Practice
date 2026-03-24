@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from forum_app.posts.forms import PersonForm, PostBaseForm
+from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm
 from forum_app.posts.models import Post
 
 
@@ -24,7 +24,7 @@ def index(request):
         'my_form': PersonForm(),
     }
 
-    return render(request, 'base.html', context=context)
+    return render(request, 'common/index.html', context=context)
 
 
 def dashboard(request):
@@ -48,3 +48,23 @@ def add_post(request):
     }
 
     return render(request, 'posts/add-post.html', context)
+
+
+def edit_post(request, pk: int):
+    post = Post.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = PostEditForm(request.POST, instance=post)
+
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = PostEditForm(instance=post)
+
+    context = {
+        'form': form,
+        'post': post
+    }
+
+    return render(request, 'posts/edit-post.html', context)

@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+
+{% block content %}
     {% for post in posts %}
         {{ post.title|capfirst }}
 
@@ -18,5 +14,4 @@
     {% empty %}
         <p>No posts</p>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

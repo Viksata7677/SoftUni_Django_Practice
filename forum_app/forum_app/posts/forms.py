@@ -33,3 +33,7 @@ class PostBaseForm(forms.ModelForm):
         labels = {
             'title': "That's a label"
         }
+
+
+class PostEditForm(PostBaseForm):
+    pass
