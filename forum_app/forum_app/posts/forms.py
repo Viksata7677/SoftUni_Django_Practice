@@ -34,6 +34,15 @@ class PostBaseForm(forms.ModelForm):
             'title': "That's a label"
         }
 
+        error_messages = {
+            'title': {
+                'required': 'Enter the title of the post'
+            },
+            'author': {
+                'required': 'Enter an author of the post'
+            }
+        }
+
 
 class PostEditForm(PostBaseForm):
     pass
