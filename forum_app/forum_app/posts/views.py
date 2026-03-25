@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm
+from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
 
 
@@ -68,6 +68,27 @@ def edit_post(request, pk: int):
     }
 
     return render(request, 'posts/edit-post.html', context)
+
+
+def details_page(request, pk:int):
+    post = Post.objects.get(pk=pk)
+    formset = CommentFormSet(request.POST)
+
+    if request.method == 'POST':
+        if formset.is_valid():
+            for form in formset:
+                if form.cleaned_data:
+                    comment = form.save(commit=False)
+                    comment.post = post
+                    comment.save()
+
+            return redirect('dashboard')
+    context = {
+        'post': post,
+        'formset': formset
+    }
+
+    return render(request, 'posts/details-page.html', context)
 
 
 def delete_post(request, pk: int):

@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import formset_factory
 
 from forum_app.posts.mixins import DisabledFieldsMixin
-from forum_app.posts.models import Post
+from forum_app.posts.models import Post, Comment
 
 
 class PersonForm(forms.Form):
@@ -79,3 +80,35 @@ class PostEditForm(PostBaseForm):
 
 class PostDeleteForm(PostBaseForm, DisabledFieldsMixin):
     disabled_fields = ['title', 'content', 'author', 'languages']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['author', 'content']
+        labels = {
+            'author': '',
+            'content': ''
+        }
+        error_messages = {
+            'author': {
+                'required': 'Author name is required'
+            },
+            'content': {
+                'required': 'Content is required'
+            }
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['author'].widget.attr.update({
+            'placeholder': 'Your name'
+        })
+
+        self.fields['content'].widget.attr.update({
+            'placeholder': 'Add message'
+        })
+
+
+CommentFormSet = formset_factory(CommentForm, extra=3)
