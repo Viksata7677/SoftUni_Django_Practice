@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from forum_app.posts.mixins import DisabledFieldsMixin
 from forum_app.posts.models import Post
@@ -43,6 +44,14 @@ class PostBaseForm(forms.ModelForm):
                 'required': 'Enter an author of the post'
             }
         }
+
+    def clean_author(self):
+        author = self.cleaned_data.get('author')
+
+        if author[0] != author[0].upper():
+            raise ValidationError('Author name should start with capital letter!')
+
+        return author
 
 
 class PostEditForm(PostBaseForm):
