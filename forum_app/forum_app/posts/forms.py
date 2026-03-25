@@ -1,5 +1,6 @@
 from django import forms
 
+from forum_app.posts.mixins import DisabledFieldsMixin
 from forum_app.posts.models import Post
 
 
@@ -46,3 +47,7 @@ class PostBaseForm(forms.ModelForm):
 
 class PostEditForm(PostBaseForm):
     pass
+
+
+class PostDeleteForm(PostBaseForm, DisabledFieldsMixin):
+    disabled_fields = ['title', 'content', 'author', 'languages']
