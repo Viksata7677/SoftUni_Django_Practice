@@ -62,6 +62,16 @@ class PostBaseForm(forms.ModelForm):
         if title and content and title in content:
             raise ValidationError('Title cannot be included in the content')
 
+    def save(self, commit=True):
+        post = super.save(commit=False)
+
+        post.title = post.title.capitalize()
+
+        if commit:
+            post.save()
+
+        return post
+
 
 class PostEditForm(PostBaseForm):
     pass
