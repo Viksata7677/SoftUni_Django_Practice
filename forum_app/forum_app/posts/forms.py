@@ -24,9 +24,9 @@ class PostBaseForm(forms.ModelForm):
         model = Post
         fields = '__all__'
 
-        widgets = {
-            'title': forms.NumberInput
-        }
+        # widgets = {
+        #     'title': forms.NumberInput
+        # }
 
         help_text = {
             'title':  'This is the title'
@@ -52,6 +52,15 @@ class PostBaseForm(forms.ModelForm):
             raise ValidationError('Author name should start with capital letter!')
 
         return author
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        title = cleaned_data.get('title')
+        content = cleaned_data.get('content')
+
+        if title in content:
+            raise ValidationError('Title cannot be included in the content')
 
 
 class PostEditForm(PostBaseForm):
