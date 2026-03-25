@@ -12,6 +12,7 @@ class Post(models.Model):
     author = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     languages = models.CharField(max_length=20, choices=LanguageChoice.choices, default=LanguageChoice.OTHER)
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
 
 
 class Comment(models.Model):
