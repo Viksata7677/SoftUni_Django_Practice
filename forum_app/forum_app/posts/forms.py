@@ -59,7 +59,7 @@ class PostBaseForm(forms.ModelForm):
         title = cleaned_data.get('title')
         content = cleaned_data.get('content')
 
-        if title in content:
+        if title and content and title in content:
             raise ValidationError('Title cannot be included in the content')
 
 
