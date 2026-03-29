@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -9,22 +10,29 @@ from forum_app.posts.models import Post
 
 # Create your views here.
 
+class IndexView(TemplateView):
 
-def index(request):
+    def get_template_names(self):
+        if self.request.user.is_authenticated:
+            return ['common/logged.html']
+        else:
+            return ['common/index.html']
 
-    form = PersonForm(request.POST or None)
-
-    if request.method == "POST":
-        print(request.POST['person_name'])
-
-        if form.is_valid():
-            print(form.cleaned_data['person_name'])
-
-    context = {
-        'my_form': PersonForm(),
-    }
-
-    return render(request, 'common/index.html', context=context)
+# def index(request):
+#
+#     form = PersonForm(request.POST or None)
+#
+#     if request.method == "POST":
+#         print(request.POST['person_name'])
+#
+#         if form.is_valid():
+#             print(form.cleaned_data['person_name'])
+#
+#     context = {
+#         'my_form': PersonForm(),
+#     }
+#
+#     return render(request, 'common/index.html', context=context)
 
 
 def dashboard(request):
