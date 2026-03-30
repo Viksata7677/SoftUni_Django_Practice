@@ -1,9 +1,10 @@
 from datetime import datetime
 
+from django.forms.models import modelform_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView
+from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView, UpdateView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -87,24 +88,34 @@ class AddPostView(CreateView):
 #     return render(request, 'posts/add-post.html', context)
 
 
-def edit_post(request, pk: int):
-    post = Post.objects.get(pk=pk)
+class EditPostView(UpdateView):
+    model = Post
+    template_name = 'posts/edit-post.html'
+    success_url = reverse_lazy('dashboard')
 
-    if request.method == "POST":
-        form = PostEditForm(request.POST, instance=post)
-
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')
-    else:
-        form = PostEditForm(instance=post)
-
-    context = {
-        'form': form,
-        'post': post
-    }
-
-    return render(request, 'posts/edit-post.html', context)
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return modelform_factory(Post, fields=('title', 'content', 'author', 'languages'))
+        else:
+            return modelform_factory(Post, fields=('content',))
+# def edit_post(request, pk: int):
+#     post = Post.objects.get(pk=pk)
+#
+#     if request.method == "POST":
+#         form = PostEditForm(request.POST, instance=post)
+#
+#         if form.is_valid():
+#             form.save()
+#             return redirect('dashboard')
+#     else:
+#         form = PostEditForm(instance=post)
+#
+#     context = {
+#         'form': form,
+#         'post': post
+#     }
+#
+#     return render(request, 'posts/edit-post.html', context)
 
 
 def details_page(request, pk:int):
