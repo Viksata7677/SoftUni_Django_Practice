@@ -2,7 +2,8 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, RedirectView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -23,7 +24,7 @@ class IndexView(TemplateView):
         else:
             return ['common/index.html']
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # dynamic way
         context = super().get_context_data(**kwargs)
 
         context['dynamic_time'] = datetime.now()
@@ -125,3 +126,10 @@ def delete_post(request, pk: int):
     }
 
     return render(request, 'posts/delete-post.html', context)
+
+
+class MyRedirectHomeView(RedirectView):
+    url = reverse_lazy('homepage')  # static way
+
+    # def get_redirect_url(self, *args, **kwargs):  # dynamic way
+    #     pass
