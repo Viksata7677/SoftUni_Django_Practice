@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, RedirectView, ListView, FormView
+from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -63,19 +63,28 @@ class DashboardView(ListView):
 #
 #
 
-def add_post(request):
-    form = PostBaseForm(request.POST or None, request.FILES or None)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')
+class AddPostView(CreateView):
+    model = Post
+    form_class = PostBaseForm
+    template_name = 'posts/add-post.html'
+    success_url = reverse_lazy('dashboard')
 
-    context = {
-        'form': form
-    }
 
-    return render(request, 'posts/add-post.html', context)
+#
+# def add_post(request):
+#     form = PostBaseForm(request.POST or None, request.FILES or None)
+#
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             form.save()
+#             return redirect('dashboard')
+#
+#     context = {
+#         'form': form
+#     }
+#
+#     return render(request, 'posts/add-post.html', context)
 
 
 def edit_post(request, pk: int):
