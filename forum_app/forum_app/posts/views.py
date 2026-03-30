@@ -1,9 +1,8 @@
 from datetime import datetime
-from pdb import post_mortem
+
 
 from django.forms.models import modelform_factory
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView, UpdateView, DeleteView, \
@@ -11,13 +10,14 @@ from django.views.generic import TemplateView, RedirectView, ListView, FormView,
 
 from forum_app.decorators import measure_execution_time
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
+from forum_app.posts.mixins import TimeRestrictedMixin
 from forum_app.posts.models import Post
 
 
 # Create your views here.
 
 @method_decorator(measure_execution_time, name='dispatch')
-class IndexView(TemplateView):
+class IndexView(TimeRestrictedMixin, TemplateView):
     template_name = 'common/index.html'  # static way
 
     extra_context = {
