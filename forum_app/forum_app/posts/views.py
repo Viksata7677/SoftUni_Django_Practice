@@ -11,12 +11,24 @@ from forum_app.posts.models import Post
 # Create your views here.
 
 class IndexView(TemplateView):
+    template_name = 'common/index.html'  # static way
 
-    def get_template_names(self):
+    extra_context = {
+        'static_time': datetime.now()
+    }  # static way
+
+    def get_template_names(self):  # dynamic way
         if self.request.user.is_authenticated:
             return ['common/logged.html']
         else:
             return ['common/index.html']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['dynamic_time'] = datetime.now()
+
+        return context
 
 # def index(request):
 #

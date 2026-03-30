@@ -4,4 +4,7 @@
     <p>Hello!</p>
 
     <h1>You are logged in</h1>
+
+    <p>Static time in seconds: {{ static_time|time:"s" }}</p>
+    <p>Dynamic time in seconds: {{ dynamic_time|time:"s" }}</p>
 {% endblock %}
