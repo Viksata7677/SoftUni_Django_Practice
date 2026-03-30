@@ -1,10 +1,12 @@
 from datetime import datetime
+from pdb import post_mortem
 
 from django.forms.models import modelform_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, RedirectView, ListView, FormView, CreateView, UpdateView, DeleteView, \
+    DetailView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -164,6 +166,34 @@ class DeletePostView(DeleteView):
 #
 #     return render(request, 'posts/delete-post.html', context)
 
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'posts/details-page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['formset'] = CommentFormSet()
+        return context
+
+    def post(self, request, *args, **kwargs) :
+        post = self.get_object()
+        formset = CommentFormSet(request.POST)
+
+        if request.method == "POST":
+            if formset.is_valid():
+                for form in formset:
+                    if form.cleaned_data:
+                        comment = form.save(commit=False)
+                        comment.post = post
+                        comment.save()
+
+                return redirect('details-post', pk=post.id)
+
+        context = self.get_context_data()
+        context['formset'] = formset
+
+        return self.render_to_response(context)
 
 class MyRedirectHomeView(RedirectView):
     url = reverse_lazy('homepage')  # static way
