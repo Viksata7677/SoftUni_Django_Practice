@@ -79,6 +79,9 @@ class PostEditForm(PostBaseForm):
 
 
 class PostDeleteForm(PostBaseForm, DisabledFieldsMixin):
+    class Meta(PostBaseForm.Meta):
+        exclude = ['image']
+
     disabled_fields = ['title', 'content', 'author', 'languages']
 
 
