@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, ListView, FormView
 
 from forum_app.posts.forms import PersonForm, PostBaseForm, PostEditForm, PostDeleteForm, CommentFormSet
 from forum_app.posts.models import Post
@@ -48,13 +48,20 @@ class IndexView(TemplateView):
 #     return render(request, 'common/index.html', context=context)
 
 
-def dashboard(request):
-    content = {
-        'posts': Post.objects.all()
-    }
+class DashboardView(ListView):
+    model = Post
+    template_name = 'posts/dashboard.html'
+    context_object_name = 'posts'
 
-    return render(request, 'posts/dashboard.html', content)
-
+# FBV
+# def dashboard(request):
+#     content = {
+#         'posts': Post.objects.all()
+#     }
+#
+#     return render(request, 'posts/dashboard.html', content)
+#
+#
 
 def add_post(request):
     form = PostBaseForm(request.POST or None, request.FILES or None)
