@@ -1,6 +1,7 @@
 from django import forms
 
 from exam_preparation.album.models import Album
+from exam_preparation.mixins import ReadOnlyMixin
 
 
 class AlbumBaseForm(forms.ModelForm):
@@ -20,8 +21,8 @@ class AlbumCreateForm(AlbumBaseForm):
         }
 
 
-class AlbumDeleteForm(AlbumBaseForm):
-    pass
+class AlbumDeleteForm(ReadOnlyMixin, AlbumBaseForm):
+    read_only_fields = ['album_name', 'artist', 'genre', 'price', 'description']
 
 
 class AlbumEditForm(AlbumBaseForm):
