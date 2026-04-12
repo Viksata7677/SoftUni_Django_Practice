@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 @deconstructible
 class UsernameValidator:
-    def __init__(self, message):
+    def __init__(self, message=None):
         self.message = message
 
     @property
