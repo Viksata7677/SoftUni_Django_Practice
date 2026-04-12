@@ -24,6 +24,11 @@ class Homepage(BaseFormView, ListView):
 
         return ["common/home-no-profile.html"]
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['profile'] = get_user_obj()
+        return context
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)

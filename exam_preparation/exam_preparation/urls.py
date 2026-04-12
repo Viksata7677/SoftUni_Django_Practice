@@ -21,5 +21,6 @@ urlpatterns = [
     #    path('admin/', admin.site.urls),
     path('', include('exam_preparation.common.urls')),
     path('album/', include('exam_preparation.album.urls')),
+    path('profile/', include('exam_preparation.profiles.urls'))
 
 ]
