@@ -24,4 +24,4 @@ class Album(models.Model):
     description = models.TextField(null=True, blank=True)
     image_url = models.URLField()
     price = models.FloatField(validators=[MinValueValidator(0.0)])
-    owner = models.ForeignKey(to=Profile, on_delete=models.CASCADE) # TODO: hidden in forms
+    owner = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
