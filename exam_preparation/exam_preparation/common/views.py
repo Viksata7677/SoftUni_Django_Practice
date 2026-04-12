@@ -10,7 +10,7 @@ from exam_preparation.utils import get_user_obj
 
 # Create your views here.
 
-class Homepage(ListView, BaseFormView):
+class Homepage(BaseFormView, ListView):
     model = Album
     form_class = ProfileCreateForm
     success_url = reverse_lazy('homepage')
@@ -22,3 +22,7 @@ class Homepage(ListView, BaseFormView):
             return ["common/home-with-profile.html"]
 
         return ["common/home-no-profile.html"]
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
