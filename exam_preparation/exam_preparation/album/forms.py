@@ -18,3 +18,11 @@ class AlbumCreateForm(AlbumBaseForm):
             'image_url': forms.TextInput(attrs={'placeholder': 'Image URL'}),
             'price': forms.TextInput(attrs={'placeholder': 'Price'})
         }
+
+
+class AlbumDeleteForm(AlbumBaseForm):
+    pass
+
+
+class AlbumEditForm(AlbumBaseForm):
+    pass
