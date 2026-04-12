@@ -14,6 +14,7 @@ class Homepage(BaseFormView, ListView):
     model = Album
     form_class = ProfileCreateForm
     success_url = reverse_lazy('homepage')
+    context_object_name = 'albums'
 
     def get_template_names(self):
         profile = get_user_obj()
