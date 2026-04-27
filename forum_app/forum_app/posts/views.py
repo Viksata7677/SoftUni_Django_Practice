@@ -68,6 +68,11 @@ class DashboardView(ListView):
         return queryset
 
 
+def approve_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.approved = True
+    post.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 # FBV
 # def dashboard(request):

@@ -4,6 +4,11 @@
     <p>
         {% for post in posts %}
             {{ post.title|capfirst }}
+            {% if not post.approved %}
+                {% if 'posts.can_approve_posts' in request.user.get_group_permissions or perms.posts.can_do_approve %}
+                <a href="{% url 'approve-post' post.pk %}">Approve</a>
+            {% endif %}
+            {% endif %}
             {% if not post.content %}
                 {% lorem 3 p %}
             {% else %}
