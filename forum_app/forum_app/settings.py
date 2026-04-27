@@ -129,6 +129,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
