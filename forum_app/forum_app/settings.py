@@ -88,6 +88,11 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
+AUTHENTICATION_BACKENDS = [
+    'forum_app.accounts.authentication.EmailOrUsernameBackend'
+]
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
