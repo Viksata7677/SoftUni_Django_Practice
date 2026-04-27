@@ -23,7 +23,7 @@ class PersonForm(forms.Form):
 class PostBaseForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ['approved']
 
         # widgets = {
         #     'title': forms.NumberInput

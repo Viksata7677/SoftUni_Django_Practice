@@ -19,7 +19,7 @@ class DisabledFieldsMixin(forms.Form):
 
 class TimeRestrictedMixin:
     start_time = time(9, 0)
-    end_time = time(17, 0)
+    end_time = time(23, 0)
     forbidden_message = "You don't have access at this time!"
 
     def dispatch(self, request, *args, **kwargs):

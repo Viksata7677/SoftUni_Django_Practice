@@ -59,6 +59,15 @@ class DashboardView(ListView):
     template_name = 'posts/dashboard.html'
     context_object_name = 'posts'
 
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+
+        if not self.request.user.has_perm('posts.can_approve_posts'):
+            queryset = queryset.filter(approved=True)
+
+        return queryset
+
+
 
 # FBV
 # def dashboard(request):
