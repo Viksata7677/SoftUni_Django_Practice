@@ -13,6 +13,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     languages = models.CharField(max_length=20, choices=LanguageChoice.choices, default=LanguageChoice.OTHER)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+    approved = models.BooleanField(default=False)
 
 
 class Comment(models.Model):
