@@ -1,6 +1,6 @@
 from datetime import datetime
 
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelform_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -71,7 +71,7 @@ class DashboardView(ListView):
 #
 
 
-class AddPostView(CreateView):
+class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostBaseForm
     template_name = 'posts/add-post.html'
@@ -94,7 +94,7 @@ class AddPostView(CreateView):
 #     return render(request, 'posts/add-post.html', context)
 
 
-class EditPostView(UpdateView):
+class EditPostView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'posts/edit-post.html'
     success_url = reverse_lazy('dashboard')
@@ -124,7 +124,7 @@ class EditPostView(UpdateView):
 #     return render(request, 'posts/edit-post.html', context)
 
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'posts/delete-post.html'
     success_url = reverse_lazy('dashboard')

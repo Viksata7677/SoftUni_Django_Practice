@@ -24,7 +24,7 @@ from forum_app import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('forum_app.posts.urls')),
-    path('account/', include('forum_app.accounts.urls'))
+    path('accounts/', include('forum_app.accounts.urls'))
 
 ]
 
