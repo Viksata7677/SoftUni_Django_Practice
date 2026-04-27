@@ -129,3 +129,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = reverse_lazy('homepage')
+LOGOUT_REDIRECT_URL = reverse_lazy('homepage')
