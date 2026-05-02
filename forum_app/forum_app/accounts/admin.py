@@ -3,14 +3,21 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from forum_app.accounts.forms import CustomUserChangeForm, CustomUserForm
+from forum_app.accounts.models import Profile
 
 # Register your models here.
 
 UserModel = get_user_model()
 
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    fields = ('age', 'points')
+
 
 @admin.register(UserModel)
 class AppUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
     form = CustomUserChangeForm
     add_form = CustomUserForm
     list_display = ('username', 'email')
