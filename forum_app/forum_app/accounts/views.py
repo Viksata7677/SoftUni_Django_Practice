@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from forum_app.forms import CustomUserForm
+from forum_app.accounts.forms import CustomUserForm
 
 
 # Create your views here.
