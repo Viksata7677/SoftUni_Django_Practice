@@ -1,5 +1,7 @@
 import time
 
+from django.utils.deprecation import MiddlewareMixin
+
 
 def measure_time_execution(get_response):
     def middleware(request, *args, **kwargs):
@@ -14,15 +16,12 @@ def measure_time_execution(get_response):
     return middleware
 
 
-class MeasureTimeExecution:
-    def __init__(self, get_response):
-        self.get_response = get_response
+class MeasureTimeExecution(MiddlewareMixin):
+    def process_request(self, request):
+        self.start_time = time.time()
 
-    def __call__(self, request, *args, **kwargs):
-        start_time = time.time()
-        response = self.get_response(request, *args, **kwargs)
-        end_time = time.time()
-
-        print(f"Total time needed for execution with class was {end_time - start_time}")
-
+    def process_response(self, request, response):
+        self.end_time = time.time()
+        total_time = self.end_time - self.start_time
+        print(f"New class measure time: {total_time}")
         return response
