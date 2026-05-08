@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'forum_app.middlewares.measure_time_execution',
+    'forum_app.middlewares.MeasureTimeExecution'
 ]
 
 ROOT_URLCONF = 'forum_app.urls'
